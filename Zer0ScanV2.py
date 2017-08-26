@@ -1,27 +1,28 @@
 #! /usr/bin/python
 
+from scapy.all import sr1, ICMP, IP
 from threading import Thread
-import sys, re, getopt, signal, socket
+import sys, re, getopt, signal
 
 
-version="2.0"
-name = "Zer0ScanV2"
+version="1.2"
+name = "Zer0ScanV1"
 
 
 def usage():
 
-	print ("Zer0Scan " + version + " for multiplatform. A simple local network scanner.")
-	print ("Scanning method: Tries to connect the socket to a remote address with the library socket")
-	print ("Python version: 3.6.2")
-	print ()
-	print ("Usage: " + name + ".py HOST")
-	print ()
-	print ("-p --port: port to connect (default: 80 (HTTP)).")
-	print ()
-	print ("Examples: ")
-	print (name + ".py 192.168.0.0/24")
-	print (name + ".py 192.168.0.10-40 -p 21")
-	print (name + ".py 192.168.0.200-192.168.1.200,192.168.0.50")
+	print "Zer0Scan " + version + " for multiplatform. A simple local network scanner."
+	print "Scanning method: ICMP protocol with the library scapy"
+	print "Version of python used: 2.7.13"
+	print 
+	print "Usage: " + name + ".py HOST"
+	print
+	print "-t --timeout: how much time to wait after the last packet has been send (default: 15)."  
+	print
+	print "Examples: "
+	print name + ".py 192.168.0.0/24"
+	print name + ".py 192.168.0.10-40 -t 5"
+	print name + ".py 192.168.0.200-192.168.1.200,192.168.0.50"
 
 	sys.exit(0)
 
@@ -31,13 +32,11 @@ class Scan(Thread):
 	hostFound = hostScanned = 0
 
 
-	def __init__(self, host, port):
+	def __init__(self, host):
 
 		Thread.__init__(self)
 
 		self.host = host
-
-		self.port = port
 
 
 	@property
@@ -56,24 +55,15 @@ class Scan(Thread):
 
 	def run(self):
 
+		rep = sr1(IP(dst=self.host) / ICMP(), timeout = timeout, verbose = 0)
+
+		if not rep is None and rep.type is 0:
+
+			print rep.src
+
+			Scan.hostFound += 1
+
 		Scan.hostScanned += 1
-
-		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-		try:
-			s.connect((self.host, self.port))
-
-		except ConnectionError:
-			pass
-
-		except:
-			return
-
-		print (self.host)
-
-		Scan.hostFound += 1
-
-		s.close()
 
 
 class Host(object):
@@ -147,8 +137,8 @@ class Host(object):
 			for h in lhost:
 				h.join()
 
-		print ()
-		print ("Zer0Scan " + version + " done: {} IP addresses ({} hosts up) scanned".format(Scan.hostScanned, Scan.hostFound))
+		print
+		print "Zer0Scan " + version + " done: {} IP addresses ({} hosts up) scanned".format(Scan.hostScanned, Scan.hostFound)
 
 
 	def listRange(self):
@@ -159,16 +149,16 @@ class Host(object):
 
 		self.toHost = method()
 
-		print ()
+		print
 
 		if self.fromHost == self.toHost:
-			print ("Send ping to {}...".format('.'.join(list(map(str, self.fromHost)))))
+			print "Send ping to {}...".format('.'.join(map(str, self.fromHost)))
 		
 		else:
-			print ("Send pings from {} to {}...".format('.'.join(list(map(str, self.fromHost))), '.'.join(list(map(str, self.toHost)))))
+			print "Send pings from {} to {}...".format('.'.join(map(str, self.fromHost)), '.'.join(map(str, self.toHost)))
 
-		print ()
-		print ("Result:")
+		print
+		print "Result:"
 
 		lhost = []
 
@@ -183,7 +173,7 @@ class Host(object):
 				i -= 1
 
 			else:
-				lhost.append(Scan('.'.join(list(map(str, self.fromHost))), port))
+				lhost.append(Scan('.'.join(map(str, self.fromHost))))
 
 			if self.fromHost == self.toHost:
 				break
@@ -260,8 +250,8 @@ class Host(object):
 		for i in range(1, 5):
 			fromHost.append(self.rsearch.group(i))
 
-		try:	
-			fromHost = list(map(int, fromHost))
+		try:
+			fromHost = map(int, fromHost)
 
 		except:
 			msgError(fromHost)
@@ -272,7 +262,7 @@ class Host(object):
 def splitIntoInt(host):
 
 	try:
-		return list(map(int, host.split('.')))
+		return map(int, host.split('.'))
 
 	except:
 		msgError(host)
@@ -300,12 +290,12 @@ def isHost(host, byte = 4):
 
 def msgError(var, cause = None):
 
-	print ("Failed to resolve \"{}\".".format(var))
+	print "Failed to resolve \"{}\".".format(var)
 
 	if not cause is None:
-		print ("Raison: \"{}\".".format(cause))
+		print "Raison: \"{}\".".format(cause)
 
-	print ("WARNING: No hosts were specified, so 0 hosts scanned.")
+	print "WARNING: No hosts were specified, so 0 hosts scanned."
 
 	sys.exit(1)
 
@@ -319,15 +309,15 @@ def main():
 	if not len(sys.argv[1:]):
 		usage()
 
-	global port
+	global timeout
 
-	port = 80
+	timeout = 15
 
 	try:                                
-		opts, args = getopt.getopt(sys.argv[2:], "hp:d", ["help", "port="])
+		opts, args = getopt.getopt(sys.argv[2:], "ht:d", ["help", "timeout="])
 	
 	except getopt.GetoptError as e:
-		msgError(e)
+		msgError(e)                         
 
 	for opt, arg in opts:   
 
@@ -340,13 +330,13 @@ def main():
 
 			_debug = 1  
 
-		elif opt in ("-p", "--port"):
+		elif opt in ("-t", "--timeout"):
 
 			try:
 
-				port = int(arg) 
+				timeout = int(arg) 
 
-				assert port > 0
+				assert timeout > 0
 
 			except:
 				msgError(arg)
