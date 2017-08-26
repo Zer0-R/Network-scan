@@ -29,7 +29,7 @@ Zer0Scan 1.2 done: 256 IP addresses (2 hosts up) scanned
 ### Example 2
 input:
 ```
-Zer0ScanV1.py 192.168.0.10-40 -t 0.5
+Zer0ScanV1.py 192.168.0.10-40
 ```
 output:
 ```
@@ -83,7 +83,7 @@ Zer0Scan 2.0 done: 256 IP addresses (2 hosts up) scanned
 ### Example 2
 input:
 ```
-Zer0ScanV2.py 192.168.0.10-40 -t 0.5
+Zer0ScanV2.py 192.168.0.10-40
 ```
 output:
 ```
