@@ -13,7 +13,7 @@ def usage():
 
 	print "Zer0Scan " + version + " for multiplatform. A simple local network scanner."
 	print "Scanning method: ICMP protocol with the library scapy"
-	print "Python version: 2.7.13"
+	print "Version of python used: 2.7.13"
 	print 
 	print "Usage: " + name + ".py HOST"
 	print
@@ -306,7 +306,7 @@ def signal_handler(signal, frame):
 
 def main():
 
-	if not len(sys.argv[1:]):
+	if not len(sys.argv[1:]) or sys.argv[1] in ('-h', '--help'):
 		usage()
 
 	global timeout
@@ -314,17 +314,14 @@ def main():
 	timeout = 15
 
 	try:                                
-		opts, args = getopt.getopt(sys.argv[2:], "ht:d", ["help", "timeout="])
+		opts, args = getopt.getopt(sys.argv[2:], "t:d", ["timeout="])
 	
 	except getopt.GetoptError as e:
 		msgError(e)                         
 
 	for opt, arg in opts:   
 
-		if opt in ("-h", "--help"):                     
-			usage() 
-
-		elif opt == '-d': 
+		if opt == '-d': 
 
 			global _debug
 
