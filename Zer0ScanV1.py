@@ -5,7 +5,26 @@ from threading import Thread
 import sys, re, getopt, signal
 
 
-version="1.0"
+version="1.2"
+name = "Zer0ScanV1"
+
+
+def usage():
+
+	print "Zer0Scan " + version + " for multiplatform. A simple local network scanner."
+	print "Scanning method: ICMP protocol with the library scapy"
+	print "Python version: 2.7.13"
+	print 
+	print "Usage: " + name + ".py HOST"
+	print
+	print "-t --timeout: how much time to wait after the last packet has been send (default: 15)."  
+	print
+	print "Examples: "
+	print name + ".py 192.168.0.0/24"
+	print name + ".py 192.168.0.10-40 -t 5"
+	print name + ".py 192.168.0.200-192.168.1.200,192.168.0.50"
+
+	sys.exit(0)
 
 
 class Scan(Thread):
@@ -119,7 +138,7 @@ class Host(object):
 				h.join()
 
 		print
-		print "Zer0Scan done: {} IP addresses ({} hosts up) scanned".format(Scan.hostScanned, Scan.hostFound)
+		print "Zer0Scan " + version + " done: {} IP addresses ({} hosts up) scanned".format(Scan.hostScanned, Scan.hostFound)
 
 
 	def listRange(self):
@@ -283,22 +302,6 @@ def msgError(var, cause = None):
 
 def signal_handler(signal, frame):
     sys.exit(0)
-
-
-def usage():
-
-	print "Zer0Scan " + version + " for multiplatform. A simple local network scanner."
-	print 
-	print "Usage: Zer0Scan.py HOST"
-	print
-	print "-t --timeout: how much time to wait after the last packet has been send (default: 15)."  
-	print
-	print "Examples: "
-	print "Zer0Scan.py 192.168.0.0/24"
-	print "Zer0Scan.py 192.168.0.10-40 -t 5"
-	print "Zer0Scan.py 192.168.0.200-192.168.1.200,192.168.0.50"
-
-	sys.exit(0)
 
 
 def main():
