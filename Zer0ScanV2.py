@@ -327,12 +327,7 @@ def main():
 		opts, args = getopt.getopt(sys.argv[2:], "hp:d", ["help", "port="])
 	
 	except getopt.GetoptError as e:
-
-		print(e)      
-
-		print ("WARNING: No hosts were specified, so 0 hosts scanned.")
-
-		sys.exit(1)
+		msgError(e)
 
 	for opt, arg in opts:   
 
