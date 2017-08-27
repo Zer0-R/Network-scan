@@ -11,7 +11,7 @@ name = "Zer0ScanV2"
 def usage():
 
 	print ("Zer0Scan " + version + " for multiplatform. A simple local network scanner.")
-	print ("Scanning method: Tries to connect the socket to a remote address with the library socket")
+	print ("Scanning method: Tries to connect the socket to a remote address with the module socket")
 	print ("Version of python used: 3.6.2")
 	print ()
 	print ("Usage: " + name + ".py HOST")
