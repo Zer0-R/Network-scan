@@ -1,6 +1,11 @@
 #! /usr/bin/python
 
-from scapy.all import sr1, ICMP, IP
+try:
+    from scapy.all import sr1, ICMP, IP
+except:
+    print "Please install scapy module"
+    exit(0)
+
 from threading import Thread
 import sys, re, getopt, signal
 
@@ -12,7 +17,7 @@ name = "Zer0ScanV1"
 def usage():
 
 	print "Zer0Scan " + version + " for multiplatform. A simple local network scanner."
-	print "Scanning method: ICMP protocol with the library scapy"
+	print "Scanning method: ICMP protocol with the module scapy"
 	print "Version of python used: 2.7.13"
 	print 
 	print "Usage: " + name + ".py HOST"
