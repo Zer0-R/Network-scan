@@ -4,7 +4,8 @@ from threading import Thread
 import sys, re, getopt, signal, socket
 
 
-version="2.0"
+version = "2.0"
+
 name = "Zer0ScanV2"
 
 
