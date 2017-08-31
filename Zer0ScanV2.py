@@ -4,7 +4,7 @@ from threading import Thread
 import sys, re, getopt, signal, socket
 
 
-version = "2.0"
+version = "2.1"
 
 name = "Zer0ScanV2"
 
@@ -70,7 +70,15 @@ class Scan(Thread):
 		except:
 			return
 
-		print (self.host)
+		data = self.host
+
+		try:
+			data += ": " + socket.gethostbyaddr(self.host)[0]
+
+		except:
+			pass
+
+		print(data)
 
 		Scan.hostFound += 1
 
