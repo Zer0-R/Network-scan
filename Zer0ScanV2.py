@@ -1,4 +1,4 @@
-#! /usr/bin/pythons
+#! /usr/bin/python
 
 from threading import Thread
 import sys, re, getopt, signal, socket
