@@ -1,16 +1,28 @@
-# Network-scan
-## Utility: Displays the machines connected to the network on which you are connected.
-## Checked: Kali Linux and Windows 10
 
-## Method 1: Use the ICMP protocol to send "Echo Reply" messages in Python 2.7.13
-## Method 2: Trying to connect to a socket at a remote address in Python 3.6.2
+# Keylogger
 
-## Method 1
-### Usage
+## Utility: 
+Displays the machines connected to the network on which you are connected
+
+## Use:
+Python 2.7.13
+
+module scapy (for method 1)
+
+## Target:
+multiplatform
+
+## Method 1: 
+Use the ICMP protocol to send "Echo Reply" messages in Python 2.7.13
+## Method 2: 
+Trying to connect to a socket at a remote address in Python 3.6.2
+
+## Usage:
 ```
-Zer0ScanV1.py HOST
+Zer0ScanV2.py HOST
 ```
 
+## Method 1:
 ### Example 1
 input: 
 ```
@@ -59,12 +71,7 @@ Result:
 Zer0Scan 1.2 done: 258 IP addresses (1 hosts up) scanned
 ```
 
-## Method 2
-### Usage
-```
-Zer0ScanV2.py HOST
-```
-
+## Method 2:
 ### Example 1
 input: 
 ```
