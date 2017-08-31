@@ -11,6 +11,7 @@ import sys, re, getopt, signal
 
 
 version="1.2"
+
 name = "Zer0ScanV1"
 
 
