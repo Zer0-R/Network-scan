@@ -85,8 +85,9 @@ output:
 Send pings from 192.168.0.0 to 192.168.0.255...
 
 Result:
+192.168.0.5: DESKTOP-DVLFVVE
 192.168.0.39
-192.168.0.254
+192.168.0.254: FREEBOX
 
 Zer0Scan 2.0 done: 256 IP addresses (2 hosts up) scanned
 ```
@@ -114,7 +115,7 @@ output:
 Send pings from 192.168.0.200 to 192.168.1.200...
 
 Result:
-192.168.0.254
+192.168.0.254: FREEBOX
 
 Send ping to 192.168.0.50...
 
