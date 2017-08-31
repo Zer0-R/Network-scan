@@ -1,6 +1,5 @@
 
-# Keylogger
-
+# Network Scan
 ## Utility: 
 Displays the machines connected to the network on which you are connected
 
