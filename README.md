@@ -13,10 +13,6 @@ multiplatform
 
 ## Version 1.x: 
 Use the ICMP protocol to send "Echo Reply" messages in Python 2.7.13
-## Version 2.x: 
-Trying to connect to a socket at a remote address in Python 3.6.2
-
-## Version 1.x:
 
 ### Usage:
 ```
@@ -71,7 +67,8 @@ Result:
 Zer0Scan 1.2 done: 258 IP addresses (1 hosts up) scanned
 ```
 
-## Version 2.x:
+## Version 2.x: 
+Trying to connect to a socket at a remote address in Python 3.6.2
 
 ### Usage:
 ```
